@@ -23,6 +23,6 @@ here the json template will be stored on aws s3 bucket who's location we have to
 
 here if you see we are also passing parameters file in the command it self and that parameters.json file is stored locally where i'm executing this command
 
-the update od CloudFormation stack is also same where we just have to use ```update-stack inplace of create-stack```
+the update od CloudFormation stack is also same where we just have to use ```  update-stack ``` inplace of ``` create-stack ```
 
 
