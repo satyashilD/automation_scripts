@@ -4,14 +4,16 @@
 
 this will give response as below and we have to use it in our programs to make successful aws cli calls
 
-```{
+```
+{
     "Credentials": {
         "SecretAccessKey": "secret-access-key",
         "SessionToken": "temporary-session-token",
         "Expiration": "expiration-date-time",
         "AccessKeyId": "access-key-id"
     }
-}```
+}
+```
 
 
 #To create a CloudFormation stack use below commands 
