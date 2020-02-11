@@ -25,4 +25,10 @@ here if you see we are also passing parameters file in the command it self and t
 
 the update od CloudFormation stack is also same where we just have to use ```  update-stack ``` inplace of ``` create-stack ```
 
+Use below command to login to AWS ECR
 
+Inorder to push/pull a image to/from ECR docker must first login to repository
+
+``` aws ecr get-login --region us-east-1 > docker-login.sh
+    sed  "s/\ ^-e//g" docker-login.sh
+    sed -i "s/none//g" docker-login.sh ````
