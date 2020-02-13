@@ -4,11 +4,11 @@ If you are doing it from local machine then you need to configure your ceredenti
 
 
 To push image on ECR
-1> Docker login
+
+#Docker login: As we are trying to push image to a private repository in this case it's ECR so the very first step is to perform login to get connected to repository
+
+
 ```
-
-As we are trying to push image to a private repository in this case it's ECR so the very first step is to perform login to get connected to repository
-
  sudo aws ecr get-login --region us-east-1 > docker-login.sh
  sed  "s/\ -e//g" docker-login.sh
  sed -i "s/none//g" docker-login.sh
@@ -19,9 +19,10 @@ Configure a credential helper to remove this warning. See
 https://docs.docker.com/engine/reference/commandline/login/#credentials-store
 
 Login Succeeded
-
+```
 or if that is not working then use these commands
 
+```
 pwd="$(aws ecr get-login  --region us-east-1 | awk '{print $6}')"
 sudo docker login -u AWS -p "$pwd" https://XXXXXXX.dkr.ecr.us-east-1.amazonaws.com
 
