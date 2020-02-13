@@ -2,6 +2,13 @@
 Make sure the EC2 instance that you are using to push/pull images from have IAM Role attached having enugh permissions
 If you are doing it from local machine then you need to configure your ceredentials first and then folow below steps
 
+If you are using ECS service for your containers deployment then make sure you have below IAM Policies are attached to the IAM Role you have created for ECS
+
+```
+"arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+"arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"
+```
+
 
 To push image on ECR
 
