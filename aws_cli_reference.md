@@ -29,6 +29,8 @@ Use below command to login to AWS ECR
 
 Inorder to push/pull a image to/from ECR docker must first login to repository
 
-``` aws ecr get-login --region us-east-1 > docker-login.sh
+```  
+    aws ecr get-login --region us-east-1 > docker-login.sh
     sed  "s/\ ^-e//g" docker-login.sh
-    sed -i "s/none//g" docker-login.sh ````
+    sed -i "s/none//g" docker-login.sh 
+```
