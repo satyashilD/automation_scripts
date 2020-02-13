@@ -17,7 +17,7 @@ To push image on ECR
 
 ```
  sudo aws ecr get-login --region us-east-1 > docker-login.sh
- sed  "s/\ -e//g" docker-login.sh
+ sed  -i "s/\ -e//g" docker-login.sh
  sed -i "s/none//g" docker-login.sh
  ubuntu@ip-172-31-45-126:~$ sudo bash docker-login.sh
 WARNING! Using --password via the CLI is insecure. Use --password-stdin.
