@@ -12,3 +12,9 @@ this will give response as below and we have to use it in our programs to make s
         "AccessKeyId": "access-key-id"
     }
 }```
+
+
+# Calculate S3 bucket usage:
+```
+for BUCKET in $(aws s3 ls | awk '{print $3}'); do SIZE=$(aws s3 ls s3://$BUCKET --recursive --human-readable --summarize | grep -i 'Total Size:' | cut -d: -f2); echo $BUCKET:$SIZE >> S3Usage.csv ; done
+```
