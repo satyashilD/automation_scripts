@@ -37,17 +37,20 @@ def get_nlb_connection_avg(nlb_name,az):
         sum_count += count['Average'] 
         avg_count += 1
         # print(count['Average'])
-    avg =  sum_count/avg_count
+    try:
+        avg =  sum_count/avg_count
+    except:
+        print("No historic data")
     return(avg)
 
 nlb_client = boto3.client('elbv2')
 
 nlb_response = nlb_client.describe_load_balancers()
+print("Loadbalancer,ConnectionAverage")
 for nlb_item in nlb_response['LoadBalancers']:
     # print(nlb_item)
     if nlb_item[ 'Type'] != 'network':
         continue
-    print("Loadbalancer,ConnectionAverage\n")
     for az in nlb_item['AvailabilityZones']:
        arn_split_list = nlb_item['LoadBalancerArn'].split(':')[5]
        arn_split_list = arn_split_list.split('/')
