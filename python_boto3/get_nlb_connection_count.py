@@ -2,7 +2,7 @@ import boto3
 from datetime import datetime
 from datetime import timedelta
 
-def get_nlb_connection_avg(nlb_name):
+def get_nlb_connection_avg(nlb_name,az):
     client = boto3.client('cloudwatch')
     response = client.get_metric_statistics(
         Namespace='AWS/NetworkELB',
@@ -14,10 +14,15 @@ def get_nlb_connection_avg(nlb_name):
             },
             {
                 'Name': 'AvailabilityZone',
-                'Value': 'us-west-2a'
-            }
+                'Value': az
+            },
+            
+            # {
+            #     'Name': 'AvailabilityZone',
+            #     'Value': 'us-west-2b'
+            # }
         ],
-        StartTime=datetime.utcnow() - timedelta(days=5),
+        StartTime=datetime.utcnow() - timedelta(days=30),
         EndTime=datetime.utcnow() - timedelta(days=1),
         Period=3600,
         Statistics=[
@@ -39,10 +44,13 @@ nlb_client = boto3.client('elbv2')
 
 nlb_response = nlb_client.describe_load_balancers()
 for nlb_item in nlb_response['LoadBalancers']:
+    # print(nlb_item)
     if nlb_item[ 'Type'] != 'network':
         continue
-    nlb_arn_split_list = nlb_item['LoadBalancerArn'].split(':')[5]
-    nlb_arn_split_list = arn_split_list.split('/')
-    nlb_name = f"{nlb_arn_split_list[1]}/{nlb_arn_split_list[2]}/{nlb_arn_split_list[3]}"
-    response = f"Loadbalancer,ConnectionAverage\n{nlb_name},{get_nlb_connection_avg(nlb_name)}"
-    print(response)
+    print("Loadbalancer,ConnectionAverage\n")
+    for az in nlb_item['AvailabilityZones']:
+       arn_split_list = nlb_item['LoadBalancerArn'].split(':')[5]
+       arn_split_list = arn_split_list.split('/')
+       nlb_name = f"{arn_split_list[1]}/{arn_split_list[2]}/{arn_split_list[3]}"
+       response = f"{nlb_name},{get_nlb_connection_avg(nlb_name,az['ZoneName'])}"
+       print(response)
