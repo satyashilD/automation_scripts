@@ -39,9 +39,9 @@ def get_nlb_connection_avg(nlb_name,az):
         # print(count['Average'])
     try:
         avg =  sum_count/avg_count
+        return(avg)
     except:
         print("No historic data")
-    return(avg)
 
 nlb_client = boto3.client('elbv2')
 
